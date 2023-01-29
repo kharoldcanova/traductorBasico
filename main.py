@@ -1,14 +1,43 @@
-#Importacion de libreria
-from deep_translator import GoogleTranslator;
+import tkinter as tk
+import traductor
 
-#Metodo para traducir un determinado texto
-def translate(texto):
-    traductor = GoogleTranslator(source="es", target="en");
-    traduccion = traductor.translate(texto)
-    return traduccion;
+#inicializate
+root = tk.Tk()
+root.geometry("400x100")
+root.title("Traductor")
 
-#Menu basico para introducir texto
-print('Hola');
-print('¿Que texto te gustaria traducir a ingles el dia de hoy?');
-texto = input();
-print("El resultado es: " + translate(texto));
+#create a label
+label = tk.Label(root, text="Ingresa un texto: ")
+label.pack()
+
+#variable 
+word = tk.StringVar()
+
+#create a entry
+entry = tk.Entry(root, textvariable=word)
+entry.config(width=50)
+entry.pack()
+
+#set a label
+texttranslate = tk.StringVar()
+texttranslate.set("Aqui se mostrara la traducccion")
+
+#create a new label 
+wordtranslate = tk.Label(root, textvariable=texttranslate)
+wordtranslate.pack()
+
+
+# function
+def handle_input():
+    entered_word = word.get()
+    translate = traductor.translate(entered_word)
+    texttranslate.set(translate)
+    print(translate)
+
+#create a button 
+bottom = tk.Button(root, text="Traducir", command=handle_input)
+
+bottom.pack()
+
+root.mainloop()
+
